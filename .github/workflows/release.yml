@@ -1,10 +1,9 @@
 name: 'C++ CI'
 
 on:
-  push:
+  create:
     branches:
       - main
-      - feature/github_actions
 
 jobs:
   build:
