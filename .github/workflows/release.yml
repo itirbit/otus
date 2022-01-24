@@ -1,7 +1,7 @@
 name: 'C++ CI'
 
 on:
-  create:
+  push:
     branches:
       - main
 
@@ -13,10 +13,11 @@ jobs:
         with:
           submodules: true
       - run: sudo apt-get update && sudo apt-get install libboost-test-dev -y
-      - run: cmake homework0/src/ -DPATCH_VERSION=${{ github.run_number }} -DWITH_BOOST_TEST=ON
+      - run: cmake homework1/src/ -DPATCH_VERSION=${{ github.run_number }} -DWITH_BOOST_TEST=ON
       - run: cmake --build .
       - run: cmake --build . --target test
       - run: cmake --build . --target package
+      - run: cat homework1/src/ip_filter.tsv | ip_filter | md5sum
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
