@@ -28,7 +28,8 @@ unsigned split(const std::string& str, char d)
     std::string::size_type stop = str.find_first_of(d);
     while (stop != std::string::npos)
     {
-        unsigned v = std::stoi(str.substr(start, stop - start));
+        auto newStr = str.substr(start, stop - start);
+        unsigned v = std::stoi(newStr);
         r += v;
         r = r << 8;
 
@@ -50,7 +51,7 @@ int main(int argc, char const* argv[])
         for (std::string line; std::getline(std::cin, line);)
         {
             trim(line);
-            int v = split(line, '.');
+            unsigned v = split(line, '.');
             ip_pool.push_back(v);
         }
 
@@ -64,6 +65,30 @@ int main(int argc, char const* argv[])
             int c = (ip >> 8) & 255;
             int d = ip & 255;
             std::cout << a << '.' << b << '.' << c << '.' << d << '\n';
+        }
+        for (auto ip : ip_pool) {
+            int a = (ip >> 24) & 255;
+            int b = (ip >> 16) & 255;
+            int c = (ip >> 8) & 255;
+            int d = ip & 255;
+            if (a == 1)
+                std::cout << a << '.' << b << '.' << c << '.' << d << '\n';
+        }
+        for (auto ip : ip_pool) {
+            int a = (ip >> 24) & 255;
+            int b = (ip >> 16) & 255;
+            int c = (ip >> 8) & 255;
+            int d = ip & 255;
+            if (a == 46 && b == 70)
+                std::cout << a << '.' << b << '.' << c << '.' << d << '\n';
+        }
+        for (auto ip : ip_pool) {
+            int a = (ip >> 24) & 255;
+            int b = (ip >> 16) & 255;
+            int c = (ip >> 8) & 255;
+            int d = ip & 255;
+            if (a == 46 || b == 46 || c == 46 || d == 46)
+                std::cout << a << '.' << b << '.' << c << '.' << d << '\n';
         }
     }
     catch (const std::exception& e)
