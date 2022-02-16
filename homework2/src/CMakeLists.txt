@@ -12,9 +12,7 @@ set_target_properties(allocator_cli PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQU
 
 
 target_include_directories(allocator PRIVATE "${CMAKE_BINARY_DIR}")
-
 target_link_libraries(allocator_cli PRIVATE allocator)
-
 install(TARGETS allocator_cli RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR DEB)
