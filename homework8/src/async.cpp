@@ -7,17 +7,13 @@ void asyncLogger::connect(int n){
 }
 
 void asyncLogger::disconnect(){
-	while (true) {
-		if (bufferToFile.empty() && bufferToLog.empty()) 
-			break;
-		else {
-			cvFile.notify_all();
-			cvLog.notify_all();
-		}
-	}
 	done = true;
+	cvFile.notify_all();
+	cvLog.notify_all();
 	for (auto& t : threads) {
-		t.join();
+		if (t.joinable()) {
+			t.join();
+		}
 	}
 }
 
